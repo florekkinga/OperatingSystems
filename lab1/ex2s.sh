@@ -10,9 +10,11 @@
     
     for i in `cat sysconf.list.txt | grep _SC`
     do
-
+	# Usuwamy nowe linie z końca nazwy zmienne
         S=$(echo "$i" | tr -d '\n' | tr -d '\r')
-        [ -z "$S" ] && continue
+	# Ignorujemy puste linie
+	[ -z "$S" ] && continue
+        
 	echo '  #ifdef '$i
         echo "      r = sysconf($S);"
         echo "      printf(\"The value of $S is %ld\\n\", r);"
